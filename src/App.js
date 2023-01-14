@@ -9,23 +9,13 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 import Private from "./Private";
 // import SingIn from "./SingIn";
-
-firebase.initializeApp({
-  apiKey: "AIzaSyCi8O1ELlnHEMbKPo6W8-PJDV60nQdqyJM",
-  authDomain: "calculadora-de-ganancias.firebaseapp.com",
-  projectId: "calculadora-de-ganancias",
-  storageBucket: "calculadora-de-ganancias.appspot.com",
-  messagingSenderId: "666324250754",
-  appId: "1:666324250754:web:460e65331e173e4a8c449b",
-  measurementId: "G-86922JM6KG"
-
-})
+import {auth} from "./firebase-config";
 
 
 
 function App() {
 
-const auth = firebase.auth();
+
 const firestore = firebase.firestore();
 
 const [user] = useAuthState(auth);
@@ -46,11 +36,7 @@ function SingIn(){
 
   const signInWithGoogle = () => {
       const provider = new firebase.auth.GoogleAuthProvider();
-      firebase.auth().signInWithPopup(provider).then((result) => {
-          console.log(result.user);
-      }).catch((error) => {
-          console.log(error.message);
-      });
+      firebase.auth().signInWithPopup(provider);
   }
 
   return(
