@@ -6,30 +6,37 @@ import {useState, useEffect} from "react";
 import { auth, db} from "./firebase-config";
 
 
-
-
 function Private (){
 
-    const [ganancia, setGanancia] = useState([]);
+    const [ingresos, setIngresos] = useState([]);
     
     useEffect(() => {
+        
         const request = async () => {
-            const gananciasRef = collection(db, "ganancias");
-            const data = await getDocs(query(gananciasRef));
-        setGanancia(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+            const ingresosRef = collection(db, "ingresos");
+            const data = await getDocs(query(ingresosRef));
+        setIngresos(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
-    request();
+
+    const intervalIngresos = setInterval(request, 2000);
+
+    return () => {
+        clearInterval(intervalIngresos);
+
+        };
+
+
 }, []);
- 
+
     
     return (
         <div>
             {auth.currentUser && 
     <button onClick={() => auth.signOut()}>Sign Out</button>}
-    <div>{ganancia.map((ganancia) => {
+    <div>{ingresos.map((data) => {
         return (
-            <div key={ganancia.id}> <h2>Fuente: {ganancia.venta}</h2>
-            <h2> Valor: {ganancia.valor}</h2> </div>
+            <div key={data.id}> <h2>Fuente: {data.venta}</h2>
+            <h2> Valor: {data.valor}</h2> </div>
             
         )
     })}</div>
