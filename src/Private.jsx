@@ -31,9 +31,10 @@ function Private (){
     
     return (
         <div>
-            {auth.currentUser && 
-    <button onClick={() => auth.signOut()}>Sign Out</button>}
-    <div>{ingresos.map((data) => {
+            {auth.currentUser && <button className='p-6 bg-zinc-800 font-semibold rounded text-indigo-500' onClick={() => auth.signOut()}>Cerrar sesion</button>}
+   
+   
+        <div>{ingresos.map((data) => {
         return (
             <div key={data.id}> <h2>Fuente: {data.venta}</h2>
             <h2> Valor: {data.valor}</h2> </div>
