@@ -23,7 +23,7 @@ const [user] = useAuthState(auth);
 
      </header>
      <section>
-      {user ? <Private/> : <SingIn/>}
+      {user ? <Private user={user}/> : <SingIn/>}
      </section>
     </div>
   );

@@ -1,12 +1,12 @@
 
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-import { collection, getDocs, query } from "firebase/firestore/lite";
+import { collection, getDocs, query, where, } from "firebase/firestore/lite";
 import {useState, useEffect} from "react";
 import { auth, db} from "./firebase-config";
 
 
-function Private (){
+function Private ({user}){
 
     const [ingresos, setIngresos] = useState([]);
     const [gastos, setGastos] = useState([]);
@@ -16,21 +16,23 @@ function Private (){
         return b.date - a.date;
     });
 
+    
+    const request = async () => {
+        //Referation to the collection
+        const gastosRef = query(collection(db, "gastos"), where("uid", "==", user.uid));
+        const ingresosRef = query(collection(db, "ingresos"), where("uid", "==", user.uid));
+
+        //Query to the collection
+        const dataIngresos = await getDocs(ingresosRef);
+        const dataGastos = await getDocs(gastosRef);
+        //Set the data to the state
+        setIngresos(dataIngresos.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        setGastos(dataGastos.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+};
+
     useEffect(() => {
         
-        const request = async () => {
-            //Referation to the collection
-            const gastosRef = collection(db, "gastos");
-            const ingresosRef = collection(db, "ingresos");
-
-            //Query to the collection
-            const dataIngresos = await getDocs(query(ingresosRef));
-            const dataGastos = await getDocs(query(gastosRef));
-            
-            //Set the data to the state
-            setIngresos(dataIngresos.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-            setGastos(dataGastos.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
+ 
 
     const intervalIngresos = setInterval(request, 2000);
     const intervalGastos = setInterval(request, 2000);
@@ -40,10 +42,8 @@ function Private (){
         clearInterval(intervalGastos);
         };
 
-
+// eslint-disable-next-line react-hooks/exhaustive-deps
 }, []);
-
-        
 
     return (
         <div>
