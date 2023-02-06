@@ -1,7 +1,7 @@
 
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-import { collection, getDocs, query, where, } from "firebase/firestore/lite";
+import { collection, getDocs, query, where, onSnapshot } from "firebase/firestore";
 import {useState, useEffect} from "react";
 import { auth, db} from "./firebase-config";
 
@@ -16,31 +16,28 @@ function Private ({user}){
         return b.date - a.date;
     });
 
-    
-    const request = async () => {
-        //Referation to the collection
+    useEffect(() => {
+        //Get the data from the database
         const gastosRef = query(collection(db, "gastos"), where("uid", "==", user.uid));
         const ingresosRef = query(collection(db, "ingresos"), where("uid", "==", user.uid));
 
-        //Query to the collection
-        const dataIngresos = await getDocs(ingresosRef);
-        const dataGastos = await getDocs(gastosRef);
-        //Set the data to the state
-        setIngresos(dataIngresos.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-        setGastos(dataGastos.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-};
+        //Listen to the data and update the state
 
-    useEffect(() => {
-        
- 
+        const unsubscribeIngresos = onSnapshot(ingresosRef, (querySnapshot) => {
+            setIngresos(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        });
 
-    const intervalIngresos = setInterval(request, 2000);
-    const intervalGastos = setInterval(request, 2000);
+        const unsubscribeGastos = onSnapshot(gastosRef, (querySnapshot) => {
+            setGastos(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        });
 
-    return () => {
-        clearInterval(intervalIngresos);
-        clearInterval(intervalGastos);
+        //Unsubscribe from the data when the component unmounts
+
+        return () => {
+            unsubscribeIngresos();
+            unsubscribeGastos();
         };
+
 
 // eslint-disable-next-line react-hooks/exhaustive-deps
 }, []);
