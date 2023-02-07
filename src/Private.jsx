@@ -109,6 +109,15 @@ function Private ({user}){
                 }
             };
 
+            //Calculate the total of the data
+            const totalGastos = gastos.reduce((acc, gasto) => acc + parseInt(gasto.valor), 0);
+            const totalIngresos = ingresos.reduce((acc, ingreso) => acc + parseInt(ingreso.valor), 0);
+            const total = totalIngresos - totalGastos;
+
+            //Calculate the percentage of profit
+            const porcentajeGanancia = (total * 100) / totalIngresos;
+
+
     return (
         <div>
             <div className='flex justify-between w-full'>
@@ -143,6 +152,18 @@ function Private ({user}){
             
         )
     })}</div>
+    
+    <div className='w-1/4'>
+        <h2 className='text-lg text-zinc-500 text-center'>Calcula tus ganancias!</h2>
+        <div className='flex justify-center'>
+            <div className='bg-zinc-900 p-4 w-64 mt-5'>
+                <h3 className='text-green-400 text-center'>Total de ingresos: ${totalIngresos}</h3>
+                <h3 className='text-red-400 text-center'>Total de gastos: ${totalGastos}</h3>
+                <h3 className='text-indigo-400 text-center'>Total: ${total}</h3>
+                <h3 className='text-green-400 text-center'>Porcentaje de ganancias: {Math.round(porcentajeGanancia)}%</h3>   
+                </div>
+            </div>
+        </div>
 
         <div className='w-1/4'>
             <h2 className='text-lg text-zinc-500 text-center'>Agrega nueva actividad de tu negocio!</h2>
@@ -208,9 +229,11 @@ function Private ({user}){
             </form>
                 )}	
             </div>
+
         </div>
-        </div>
+       </div>
     </div>
+    
     )
     //⥄
 }
