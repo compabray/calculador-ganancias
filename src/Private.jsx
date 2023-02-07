@@ -74,7 +74,40 @@ function Private ({user}){
             console.log(error);
         } };
 
+        const addIngreso = async (e) => {
 
+            e.preventDefault();
+            const collectionRef = collection(db, "ingresos");
+            const payload = {
+                fuente,
+                valor,
+                uid: user.uid,
+                date: new Date(),
+                gasto:false, 
+            };
+            try {
+                await addDoc(collectionRef, payload);
+                setFuente("");
+                setValor("");
+            } catch (error) {
+                console.log(error);
+            } };
+
+            const handleToggleGastos = () => {
+                setToggleGastos(!toggleGastos);
+                
+                if(toggleGastos === false){
+                    setToggleIngresos(false);
+                }
+            };
+
+            const handleToggleIngresos = () => {
+                setToggleIngresos(!toggleIngresos);
+                
+                if(toggleIngresos === false){
+                    setToggleGastos(false);
+                }
+            };
 
     return (
         <div>
@@ -114,10 +147,41 @@ function Private ({user}){
         <div className='w-1/4'>
             <h2 className='text-lg text-zinc-500 text-center'>Agrega nueva actividad de tu negocio!</h2>
             <div className="bg-zinc-900 p-4 w-64 mt-5"> 
-                <button className="w-full font-semibold text-center text-indigo-400" onClick={() => setToggleGastos(!toggleGastos)}>{toggleGastos === false ? "Nuevo Gasto!" : "Cancelar"}</button>
+                <button className="w-full font-semibold text-center text-indigo-400" onClick={() => handleToggleGastos()}>{toggleGastos === false ? "Nuevo Gasto!" : "Cancelar"}</button>
                 {toggleGastos && (
 
                 <form onSubmit={addGasto}>
+                <div className="flex ">
+                    <label className="text-indigo-500 w-1/4 mt-6">Fuente:</label>
+                    <input
+                        type="text"
+                        value={fuente}
+                        onChange={event => setFuente(event.target.value)}
+                        placeholder="Ingresa la fuente"
+                        required
+                        className="bg-zinc-900 px-2 text-indigo-200 border-transparent border-b-indigo-500 py-0 rounded w-3/4 mt-6"
+                    />
+                </div>
+                <div className="flex">
+                    <label className="text-indigo-500 w-1/4 mt-6">Valor: <span className='text-indigo-300'>$</span></label>
+                    <input
+                        type="text"
+                        value={valor}
+                        onChange={event => setValor(event.target.value)}
+                        placeholder="Ingresa el valor"
+                        required
+                        className="bg-zinc-900 px-2 text-indigo-200 border-transparent border-b-indigo-500 py-0  rounded w-3/4 mt-6"
+                    />
+                </div>
+                <button type="submit" className="bg-zinc-900 text-indigo-300 font-semibold rounded p-2 mt-5 w-full hover:bg-zinc-800">Agregar</button>
+            </form>
+                )}	
+            </div>
+            <div className="bg-zinc-900 p-4 w-64 mt-5"> 
+                <button className="w-full font-semibold text-center text-indigo-400" onClick={() => handleToggleIngresos()}>{toggleIngresos === false ? "Nuevo Ingreso!" : "Cancelar"}</button>
+                {toggleIngresos && (
+
+                <form onSubmit={addIngreso}>
                 <div className="flex ">
                     <label className="text-indigo-500 w-1/4 mt-6">Fuente:</label>
                     <input
