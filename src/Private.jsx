@@ -1,14 +1,12 @@
 
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-import firebase from 'firebase/compat/app';
-import { collection, query, where, onSnapshot, setDoc, doc } from "firebase/firestore";
+import { collection, query, where, onSnapshot, addDoc } from "firebase/firestore";
 import {useState, useEffect} from "react";
 import { auth, db} from "./firebase-config";
 
 
 function Private ({user}){
-
     //State to store the data from the database
     const [ingresos, setIngresos] = useState([]);
     const [gastos, setGastos] = useState([]);
@@ -51,6 +49,33 @@ function Private ({user}){
     const [toggleGastos, setToggleGastos] = useState(false);
     const [toggleIngresos, setToggleIngresos] = useState(false);
 
+    //State to store the data from the form
+
+    //Function to add a new document to the database
+    const [fuente, setFuente] = useState("");
+    const [valor, setValor] = useState("");
+    
+    const addGasto = async (e) => {
+
+        e.preventDefault();
+        const collectionRef = collection(db, "gastos");
+        const payload = {
+            fuente,
+            valor,
+            uid: user.uid,
+            date: new Date(),
+            gasto:true, 
+        };
+        try {
+            await addDoc(collectionRef, payload);
+            setFuente("");
+            setValor("");
+        } catch (error) {
+            console.log(error);
+        } };
+
+
+
     return (
         <div>
             <div className='flex justify-between w-full'>
@@ -58,7 +83,7 @@ function Private ({user}){
                 {auth.currentUser && <button className='px-4 py-2 m-4 bg-zinc-900 font-semibold rounded text-indigo-500' onClick={() => auth.signOut()}>Cerrar sesion</button>}
             </div>
            
-        <div>
+        <div className='flex justify-between'>
         <div className='w-1/6'>
             <h2 className='text-lg text-zinc-500 text-center'>Historial:</h2>
             {historialSort.map((data) => {
@@ -86,24 +111,37 @@ function Private ({user}){
         )
     })}</div>
 
-        <div className='w-1/5'>
+        <div className='w-1/4'>
             <h2 className='text-lg text-zinc-500 text-center'>Agrega nueva actividad de tu negocio!</h2>
-            <div> 
-                <button className='text-red-200' onClick={() => setToggleGastos(!toggleGastos)}>Nuevo Gasto!</button>
+            <div className="bg-zinc-900 p-4 w-64 mt-5"> 
+                <button className="w-full font-semibold text-center text-indigo-400" onClick={() => setToggleGastos(!toggleGastos)}>{toggleGastos === false ? "Nuevo Gasto!" : "Cancelar"}</button>
                 {toggleGastos && (
-                    <div className='flex flex-col'>
-                        <input type="text" placeholder='Fuente del gasto' id='fuenteGasto' />
-                        <input type="number" placeholder='Valor del gasto' id='valorGasto' />
-                        <button className="text-red-200" onClick={() => {
-                            setDoc(doc(db, "gastos", user.uid), {
-                                fuente: document.getElementById('fuenteGasto').value,
-                                valor: document.getElementById('valorGasto').value,
-                                gasto: true,
-                                uid: user.uid,
-                                date: new Date(),
-                            })
-                        }}>Agregar Gasto</button>
-                    </div>
+
+                <form onSubmit={addGasto}>
+                <div className="flex ">
+                    <label className="text-indigo-500 w-1/4 mt-6">Fuente:</label>
+                    <input
+                        type="text"
+                        value={fuente}
+                        onChange={event => setFuente(event.target.value)}
+                        placeholder="Ingresa la fuente"
+                        required
+                        className="bg-zinc-900 px-2 text-indigo-200 border-transparent border-b-indigo-500 py-0 rounded w-3/4 mt-6"
+                    />
+                </div>
+                <div className="flex">
+                    <label className="text-indigo-500 w-1/4 mt-6">Valor: <span className='text-indigo-300'>$</span></label>
+                    <input
+                        type="text"
+                        value={valor}
+                        onChange={event => setValor(event.target.value)}
+                        placeholder="Ingresa el valor"
+                        required
+                        className="bg-zinc-900 px-2 text-indigo-200 border-transparent border-b-indigo-500 py-0  rounded w-3/4 mt-6"
+                    />
+                </div>
+                <button type="submit" className="bg-zinc-900 text-indigo-300 font-semibold rounded p-2 mt-5 w-full hover:bg-zinc-800">Agregar</button>
+            </form>
                 )}	
             </div>
         </div>
