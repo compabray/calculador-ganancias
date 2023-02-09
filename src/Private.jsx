@@ -120,13 +120,13 @@ function Private ({user}){
 
     return (
         <div>
-            <div className='flex justify-between w-full'>
-                <h1 className='text-xl text-indigo-400 p-4'> Comienza a Calcular tus ganancias ya!</h1>
-                {auth.currentUser && <button className='px-4 py-2 m-4 bg-zinc-900 font-semibold rounded text-indigo-500' onClick={() => auth.signOut()}>Cerrar sesion</button>}
+            <div className='flex flex-wrap w-full md:justify-between'>
+                <h1 className='text-xl text-indigo-400 p-4 text-center'> Comienza a Calcular tus ganancias ya!</h1>
+                {auth.currentUser && <button className='px-4 py-2 m-auto bg-zinc-900 font-semibold rounded text-indigo-500 md:m-4' onClick={() => auth.signOut()}>Cerrar sesion</button>}
             </div>
            
-        <div className='flex justify-between'>
-        <div className='w-1/6'>
+        <div className='flex flex-wrap md:justify-between'>
+        <div className='w-full order-last mt-5 md:order-none md:w-1/6 '>
             <h2 className='text-lg text-zinc-500 text-center'>Historial:</h2>
             {historialSort.map((data) => {
 
@@ -153,7 +153,7 @@ function Private ({user}){
         )
     })}</div>
     
-    <div className='w-1/4'>
+    <div className='w-full md:w-1/4 mt-5 order-first md:order-none'>
         <h2 className='text-lg text-zinc-500 text-center'>Calcula tus ganancias!</h2>
         <div className='flex justify-center'>
             <div className='bg-zinc-900 p-4 w-64 mt-5'>
@@ -165,8 +165,9 @@ function Private ({user}){
             </div>
         </div>
 
-        <div className='w-1/4'>
+        <div className='w-full mt-6 md:w-1/4'>
             <h2 className='text-lg text-zinc-500 text-center'>Agrega nueva actividad de tu negocio!</h2>
+            <div className='flex justify-between'>
             <div className="bg-zinc-900 p-4 w-64 mt-5"> 
                 <button className="w-full font-semibold text-center text-indigo-400" onClick={() => handleToggleGastos()}>{toggleGastos === false ? "Nuevo Gasto!" : "Cancelar"}</button>
                 {toggleGastos && (
@@ -228,6 +229,7 @@ function Private ({user}){
                 <button type="submit" className="bg-zinc-900 text-indigo-300 font-semibold rounded p-2 mt-5 w-full hover:bg-zinc-800">Agregar</button>
             </form>
                 )}	
+            </div>
             </div>
 
         </div>
