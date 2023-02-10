@@ -128,6 +128,8 @@ function Private ({user}){
         <div className='flex flex-wrap md:justify-between'>
         <div className='w-full order-last mt-5 md:order-none md:w-1/6 '>
             <h2 className='text-lg text-zinc-500 text-center'>Historial:</h2>
+            { historial.length === 0 ? <h3 className='text-center text-zinc-400'>No hay datos</h3> :
+            <div className='flex flex-wrap justify-between w-full'>
             {historialSort.map((data) => {
 
           //Convert the date from firebase to a readable date
@@ -151,7 +153,10 @@ function Private ({user}){
             </div>
             
         )
-    })}</div>
+    })}
+    </div>
+}
+   </div>
     
     <div className='w-full md:w-1/4 mt-5 order-first md:order-none'>
         <h2 className='text-lg text-zinc-500 text-center'>Calcula tus ganancias!</h2>
