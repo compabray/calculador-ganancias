@@ -126,7 +126,7 @@ function Private ({user}){
             </div>
            
         <div className='flex flex-wrap md:justify-between'>
-        <div className='w-full order-last mt-5 md:order-none md:w-1/6 '>
+        <div className='w-full order-last mt-5 md:order-none md:w-1/3 '>
             <h2 className='text-lg text-zinc-500 text-center'>Historial:</h2>
             { historial.length === 0 ? <h3 className='text-center text-zinc-400'>No hay datos</h3> :
             <div className='flex flex-wrap justify-between w-full'>
@@ -158,23 +158,23 @@ function Private ({user}){
 }
    </div>
     
-    <div className='w-full md:w-1/4 mt-5 order-first md:order-none'>
+    <div className='w-full md:w-1/3 mt-5 order-first md:order-none'>
         <h2 className='text-lg text-zinc-500 text-center'>Calcula tus ganancias!</h2>
         <div className='flex justify-center'>
             <div className='bg-zinc-900 p-4 w-64 mt-5'>
                 <h3 className='text-green-400 text-center'>Total de ingresos: ${totalIngresos}</h3>
                 <h3 className='text-red-400 text-center'>Total de gastos: ${totalGastos}</h3>
                 <h3 className='text-indigo-400 text-center'>Total: ${total}</h3>
-                <h3 className='text-green-400 text-center'>Porcentaje de ganancias: {Math.round(porcentajeGanancia)}%</h3>   
+                <h3 className='text-green-400 text-center'>Porcentaje de ganancias: {historial.length === 0 ?  "0" : Math.round(porcentajeGanancia)}%</h3>   
                 </div>
             </div>
         </div>
 
-        <div className='w-full mt-6 md:w-1/4'>
+        <div className='w-full mt-6 md:w-1/3'>
             <h2 className='text-lg text-zinc-500 text-center'>Agrega nueva actividad de tu negocio!</h2>
             <div className='flex justify-between'>
-            <div className="bg-zinc-900 p-4 w-64 mt-5"> 
-                <button className="w-full font-semibold text-center text-indigo-400" onClick={() => handleToggleGastos()}>{toggleGastos === false ? "Nuevo Gasto!" : "Cancelar"}</button>
+            <div className={`${toggleGastos === false ? "h-14" : "h-auto"} bg-zinc-900 p-4 w-64 mt-5`}> 
+                <button className=" w-full font-semibold text-center text-indigo-400" onClick={() => handleToggleGastos()}>{toggleGastos === false ? "Nuevo Gasto!" : "Cancelar"}</button>
                 {toggleGastos && (
 
                 <form onSubmit={addGasto}>
@@ -204,7 +204,7 @@ function Private ({user}){
             </form>
                 )}	
             </div>
-            <div className="bg-zinc-900 p-4 w-64 mt-5"> 
+            <div className={`${toggleIngresos === false ? "h-14" : "h-auto"} bg-zinc-900 p-4 w-64 mt-5`}> 
                 <button className="w-full font-semibold text-center text-indigo-400" onClick={() => handleToggleIngresos()}>{toggleIngresos === false ? "Nuevo Ingreso!" : "Cancelar"}</button>
                 {toggleIngresos && (
 
