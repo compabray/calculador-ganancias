@@ -125,8 +125,8 @@ function Private ({user}){
                 {auth.currentUser && <button className='px-4 py- m-auto bg-zinc-900 font-semibold rounded text-indigo-500 md:m-0 lg:m-4' onClick={() => auth.signOut()}>Cerrar sesion</button>}
             </div>
            
-        <div className='flex flex-wrap lg:justify-between'>
-        <div className='w-full order-last mt-5 lg:order-none lg:w-1/3 xl:pr-40'>
+        <div className='flex flex-wrap xl:justify-between'>
+        <div className='w-full order-last mt-5 lg:order-none lg:h-screen lg:w-1/3 xl:h-auto xl:pr-40'>
             <h2 className='text-lg text-zinc-500 text-center'>Historial:</h2>
             { historial.length === 0 ? <h3 className='text-center text-zinc-400'>No hay datos</h3> :
             <div className='flex flex-wrap justify-between w-full'>
@@ -158,7 +158,8 @@ function Private ({user}){
 }
    </div>
     
-    <div className='w-full mt-5 rounded-md order-first lg:order-none lg:w-1/3 lg:px-20'>
+<div className='w-full flex flex-col lg:w-2/3 xl:flex-row'>
+    <div className='w-full mt-5 rounded-md order-first lg:order-none mx-auto lg:w-1/2 xl:px-20'>
         <h2 className='text-lg w-full text-zinc-500 text-center'>Aquí están las estadísticas de tus registros </h2>
         <div className='flex justify-center'>
             <div className='bg-zinc-900 p-4 w-full mt-5'>
@@ -170,7 +171,7 @@ function Private ({user}){
             </div>
         </div>
 
-        <div className='w-full mt-6 lg:w-1/3'>
+        <div className='w-full mt-24 mx-auto xl:mt-6 lg:w-1/2'>
             <h2 className='text-lg text-zinc-500 text-center'>Agrega nueva actividad de tu negocio</h2>
             <div className='flex justify-between'>
             <div className={`${toggleGastos === false ? "h-14" : "h-auto"} bg-zinc-900 p-4 w-64 mt-5`}> 
@@ -237,6 +238,7 @@ function Private ({user}){
             </div>
             </div>
 
+        </div>
         </div>
        </div>
     </div>
