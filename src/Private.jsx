@@ -1,7 +1,7 @@
 
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-import { collection, query, where, onSnapshot, addDoc } from "firebase/firestore";
+import { collection, query, where, onSnapshot, addDoc, deleteDoc, doc } from "firebase/firestore";
 import {useState, useEffect} from "react";
 import { auth, db} from "./firebase-config";
 
@@ -109,6 +109,15 @@ function Private ({user}){
                 }
             };
 
+
+          const handleDelete = async (id, gasto) => {
+                if(gasto === true){
+                    await deleteDoc(doc(db, "gastos", id));
+                } else {
+                    await deleteDoc(doc(db, "ingresos", id));
+                }
+          };
+
             //Calculate the total of the data
             const totalGastos = gastos.reduce((acc, gasto) => acc + parseInt(gasto.valor), 0);
             const totalIngresos = ingresos.reduce((acc, ingreso) => acc + parseInt(ingreso.valor), 0);
@@ -136,8 +145,10 @@ function Private ({user}){
             const fireBaseTime = new Date(data.date.seconds * 1000 + data.date.nanoseconds / 1000000,);
             const date = fireBaseTime.toLocaleDateString();
 
+                
         return (
-            <div key={data.id} className="w-full m-auto p-1 bg-zinc-800 rounded mt-2"> { data.gasto === true ?
+            <div key={data.id} className="w-full m-auto p-1 bg-zinc-800 rounded mt-2">
+                <button className='text-red-500' onClick={()=> handleDelete(data.id, data.gasto)}>HERE</button> { data.gasto === true ?
                 <div className='flex flex-wrap justify-between w-full'>
                     <h3 className='text-red-500 text-sm my-auto'> <span className='text-lg'>⥄</span> {data.fuente.toUpperCase()}</h3>
                     <h3 className='text-red-400 text-sm my-auto'>- ${data.valor}</h3> 
