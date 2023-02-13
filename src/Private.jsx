@@ -148,7 +148,8 @@ function Private ({user}){
                 
         return (
             <div key={data.id} className="w-full m-auto p-1 bg-zinc-800 rounded mt-2">
-                <button className='text-red-500' onClick={()=> handleDelete(data.id, data.gasto)}>HERE</button> { data.gasto === true ?
+               
+                { data.gasto === true ?
                 <div className='flex flex-wrap justify-between w-full'>
                     <h3 className='text-red-500 text-sm my-auto'> <span className='text-lg'>⥄</span> {data.fuente.toUpperCase()}</h3>
                     <h3 className='text-red-400 text-sm my-auto'>- ${data.valor}</h3> 
@@ -160,7 +161,8 @@ function Private ({user}){
                     <h3 className='text-green-400 text-sm my-auto'>+ ${data.valor}</h3> 
                 </div>
               }
-            <h4 className='block text-xs text-zinc-400'>{date}</h4>
+            <h4 className='w-1/2 inline text-xs text-zinc-400'>{date}</h4>
+            <button className='text-zinc-400 float-right text-sm hover:text-zinc-300' onClick={()=> handleDelete(data.id, data.gasto)}>Eliminar</button> 
             </div>
             
         )
@@ -186,7 +188,7 @@ function Private ({user}){
             <h2 className='text-lg text-zinc-500 text-center'>Agrega nueva actividad de tu negocio</h2>
             <div className='flex justify-between'>
             <div className={`${toggleGastos === false ? "h-14" : "h-auto"} bg-zinc-900 p-4 w-64 mt-5`}> 
-                <button className=" w-full font-semibold text-center text-indigo-400" onClick={() => handleToggleGastos()}>{toggleGastos === false ? "Nuevo Gasto" : "Cancelar"}</button>
+                <button className=" w-full font-semibold text-center text-indigo-400" onClick={() => handleToggleGastos()}>{toggleGastos === false ? "Nuevo Gasto" : "Cancelar Gasto"}</button>
                 {toggleGastos && (
 
                 <form onSubmit={addGasto}>
@@ -217,7 +219,7 @@ function Private ({user}){
                 )}	
             </div>
             <div className={`${toggleIngresos === false ? "h-14" : "h-auto"} bg-zinc-900 p-4 w-64 mt-5`}> 
-                <button className="w-full font-semibold text-center text-indigo-400" onClick={() => handleToggleIngresos()}>{toggleIngresos === false ? "Nuevo Ingreso" : "Cancelar"}</button>
+                <button className="w-full font-semibold text-center text-indigo-400" onClick={() => handleToggleIngresos()}>{toggleIngresos === false ? "Nuevo Ingreso" : "Cancelar Ingreso"}</button>
                 {toggleIngresos && (
 
                 <form onSubmit={addIngreso}>
