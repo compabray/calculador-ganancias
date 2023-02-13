@@ -53,8 +53,21 @@ function Private ({user}){
 
     //Function to add a new document to the database
     const [fuente, setFuente] = useState("");
-    const [valor, setValor] = useState("");
+    const [valor, setValor] = useState(0);
+    const [errorN, setErrorN] = useState(false);
     
+
+    //Function to check if the input is a number NEED TO FIX IT
+    const checkNumber = (e) => {
+        const re = /^[0-9\b]+$/;
+        if (e.target.value === ""  || re.test(e.target.value || e.target.value === 0 )) {
+            setValor(e.target.value);
+            setErrorN(false);
+        } else {
+            setErrorN(true);
+        }
+    };
+
     const addGasto = async (e) => {
 
         e.preventDefault();
@@ -95,6 +108,8 @@ function Private ({user}){
 
             const handleToggleGastos = () => {
                 setToggleGastos(!toggleGastos);
+                setFuente("");
+                setValor("");
                 
                 if(toggleGastos === false){
                     setToggleIngresos(false);
@@ -103,6 +118,8 @@ function Private ({user}){
 
             const handleToggleIngresos = () => {
                 setToggleIngresos(!toggleIngresos);
+                setFuente("");
+                setValor("");
                 
                 if(toggleIngresos === false){
                     setToggleGastos(false);
@@ -197,23 +214,25 @@ function Private ({user}){
                     <input
                         type="text"
                         value={fuente}
-                        onChange={event => setFuente(event.target.value)}
+                        onChange={(event) => setFuente(event.target.value)}
                         placeholder="Ingresa la fuente"
                         required
                         className="bg-zinc-900 px-2 text-indigo-200 border-transparent border-b-indigo-500 py-0 rounded w-3/4 mt-6"
                     />
+                    
                 </div>
                 <div className="flex">
                     <label className="text-indigo-500 w-1/4 mt-6">Valor: <span className='text-indigo-300'>$</span></label>
                     <input
                         type="text"
                         value={valor}
-                        onChange={event => setValor(event.target.value)}
+                        onChange={event => checkNumber(event)}
                         placeholder="Ingresa el valor"
                         required
                         className="bg-zinc-900 px-2 text-indigo-200 border-transparent border-b-indigo-500 py-0  rounded w-3/4 mt-6"
                     />
                 </div>
+                {errorN === true ? <h4 className='text-red-400 text-sm w-full text-center p-2'>Solo se permiten números</h4> : null}
                 <button type="submit" className="bg-zinc-900 text-indigo-300 font-semibold rounded p-2 mt-5 w-full hover:bg-zinc-800">Agregar</button>
             </form>
                 )}	
@@ -239,12 +258,13 @@ function Private ({user}){
                     <input
                         type="text"
                         value={valor}
-                        onChange={event => setValor(event.target.value)}
+                        onChange={event => checkNumber(event)}
                         placeholder="Ingresa el valor"
                         required
                         className="bg-zinc-900 px-2 text-indigo-200 border-transparent border-b-indigo-500 py-0  rounded w-3/4 mt-6"
                     />
                 </div>
+                {errorN === true ? <h4 className='text-red-400 text-sm w-full text-center p-2'>Solo se permiten números</h4> : null}
                 <button type="submit" className="bg-zinc-900 text-indigo-300 font-semibold rounded p-2 mt-5 w-full hover:bg-zinc-800">Agregar</button>
             </form>
                 )}	
