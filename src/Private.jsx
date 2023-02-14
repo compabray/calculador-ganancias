@@ -144,11 +144,15 @@ function Private ({user}){
 
             //Calculate the percentage of profit
             const porcentajeGanancia = () => {
-            const [percentage, setPercentage] = useState(0);
-            
-            if(percentage ===)
-                (total * 100) / totalIngresos;
+                if(totalIngresos === 0 || totalGastos === 0){
+                    return 0;
+                } else {
+                    return (totalIngresos / totalGastos) * 100;
+                }
             }
+            
+            console.log(porcentajeGanancia());
+    
 
 
     return (
@@ -203,7 +207,7 @@ function Private ({user}){
                 <h3 className='text-green-400 text-center'>Total de ingresos: ${totalIngresos}</h3>
                 <h3 className='text-red-400 text-center'>Total de gastos: ${totalGastos}</h3>
                 <h3 className='text-indigo-400 text-center'>Total: ${total}</h3>
-                <h3 className='text-green-400 text-center'>Porcentaje de ganancias: {historial.length === 0 ?  "0" : Math.round(porcentajeGanancia)}%</h3>   
+                <h3 className='text-green-400 text-center'>Porcentaje de ganancias: {historial.length === 0 ?  "0" : Math.round(porcentajeGanancia())}%</h3>   
                 </div>
             </div>
         </div>
