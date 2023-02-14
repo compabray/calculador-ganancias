@@ -60,7 +60,7 @@ function Private ({user}){
     //Function to check if the input is a number NEED TO FIX IT
     const checkNumber = (e) => {
         const re = /^[0-9\b]+$/;
-        if (e.target.value === ""  || re.test(e.target.value || e.target.value === 0 )) {
+        if (e.target.value === "" || e.target.value === null || re.test(e.target.value || e.target.value === 0 )) {
             setValor(e.target.value);
             setErrorN(false);
         } else {
@@ -110,6 +110,7 @@ function Private ({user}){
                 setToggleGastos(!toggleGastos);
                 setFuente("");
                 setValor("");
+                setErrorN(false);
                 
                 if(toggleGastos === false){
                     setToggleIngresos(false);
@@ -120,6 +121,7 @@ function Private ({user}){
                 setToggleIngresos(!toggleIngresos);
                 setFuente("");
                 setValor("");
+                setErrorN(false);
                 
                 if(toggleIngresos === false){
                     setToggleGastos(false);
@@ -141,7 +143,12 @@ function Private ({user}){
             const total = totalIngresos - totalGastos;
 
             //Calculate the percentage of profit
-            const porcentajeGanancia = (total * 100) / totalIngresos;
+            const porcentajeGanancia = () => {
+            const [percentage, setPercentage] = useState(0);
+            
+            if(percentage ===)
+                (total * 100) / totalIngresos;
+            }
 
 
     return (
