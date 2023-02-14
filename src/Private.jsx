@@ -164,8 +164,8 @@ function Private ({user}){
            
         <div className='flex flex-wrap xl:justify-between'>
         <div className='w-full order-last mt-5 lg:order-none lg:h-screen lg:w-1/3 xl:h-auto xl:pr-40'>
-            <h2 className='text-lg text-zinc-500 text-center'>Historial:</h2>
-            { historial.length === 0 ? <h3 className='text-center text-zinc-400'>No hay datos</h3> :
+            <h2 className='text-lg text-zinc-400 text-center'>Historial:</h2>
+            { historial.length === 0 ? <h3 className='text-center text-zinc-500'>No hay datos</h3> :
             <div className='flex flex-wrap justify-between w-full'>
             {historialSort.map((data) => {
 
@@ -201,27 +201,27 @@ function Private ({user}){
     
 <div className='w-full flex flex-col lg:w-2/3 xl:flex-row'>
     <div className='w-full mt-5 rounded-md order-first lg:order-none mx-auto lg:w-1/2 xl:px-20'>
-        <h2 className='text-lg w-full text-zinc-500 text-center'>Aquí están las estadísticas de tus registros </h2>
+        <h2 className='text-lg w-full text-zinc-400 text-center'>Aquí están las estadísticas de tus registros </h2>
         <div className='flex justify-center'>
-            <div className='bg-zinc-900 p-4 w-full mt-5'>
+        <div className=' px-4 py-8 border border-zinc-800 w-full mt-5 rounded-3xl '>
                 <h3 className='text-green-400 text-center'>Total de ingresos: ${totalIngresos}</h3>
                 <h3 className='text-red-400 text-center'>Total de gastos: ${totalGastos}</h3>
                 <h3 className='text-indigo-400 text-center'>Total: ${total}</h3>
-                <h3 className='text-green-400 text-center'>Porcentaje de ganancias: {historial.length === 0 ?  "0" : Math.round(porcentajeGanancia())}%</h3>   
+                <h3 className='text-zinc-400 text-center'>Porcentaje de ganancias: {historial.length === 0 ?  "0" : Math.round(porcentajeGanancia())}%</h3>   
                 </div>
             </div>
         </div>
 
         <div className='w-full mt-24 mx-auto xl:mt-6 lg:w-1/2'>
-            <h2 className='text-lg text-zinc-500 text-center'>Agrega nueva actividad de tu negocio</h2>
+            <h2 className='text-lg text-zinc-400 text-center'>Agrega nueva actividad de tu negocio</h2>
             <div className='flex justify-between'>
-            <div className={`${toggleGastos === false ? "h-14" : "h-auto"} bg-zinc-900 p-4 w-64 mt-5`}> 
+            <div className={`${toggleGastos === false ? "h-14" : "h-auto"}  border-2 border-zinc-900 rounded-md  p-4 w-64 mt-5`}> 
                 <button className=" w-full font-semibold text-center text-indigo-400" onClick={() => handleToggleGastos()}>{toggleGastos === false ? "Nuevo Gasto" : "Cancelar Gasto"}</button>
                 {toggleGastos && (
 
                 <form onSubmit={addGasto}>
                 <div className="flex ">
-                    <label className="text-indigo-500 w-1/4 mt-6">Fuente:</label>
+                    <label className="text-zinc-300 w-1/4 mt-6">Fuente:</label>
                     <input
                         type="text"
                         value={fuente}
@@ -233,7 +233,7 @@ function Private ({user}){
                     
                 </div>
                 <div className="flex">
-                    <label className="text-indigo-500 w-1/4 mt-6">Valor: <span className='text-indigo-300'>$</span></label>
+                    <label className="text-zinc-300 w-1/4 mt-6">Valor: <span className='text-indigo-300'>$</span></label>
                     <input
                         type="text"
                         value={valor}
@@ -244,17 +244,17 @@ function Private ({user}){
                     />
                 </div>
                 {errorN === true ? <h4 className='text-red-400 text-sm w-full text-center p-2'>Solo se permiten números</h4> : null}
-                <button type="submit" className="bg-zinc-900 text-indigo-300 font-semibold rounded p-2 mt-5 w-full hover:bg-zinc-800">Agregar</button>
+                <button type="submit" className="border border-zinc-800 text-indigo-400 font-semibold rounded p-2 mt-5 w-full hover:bg-indigo-600 hover:text-zinc-300">Agregar</button>
             </form>
                 )}	
             </div>
-            <div className={`${toggleIngresos === false ? "h-14" : "h-auto"} bg-zinc-900 p-4 w-64 mt-5`}> 
+            <div className={`${toggleIngresos === false ? "h-14" : "h-auto"} border-2 border-zinc-900 rounded-md p-4 w-64 mt-5`}> 
                 <button className="w-full font-semibold text-center text-indigo-400" onClick={() => handleToggleIngresos()}>{toggleIngresos === false ? "Nuevo Ingreso" : "Cancelar Ingreso"}</button>
                 {toggleIngresos && (
 
                 <form onSubmit={addIngreso}>
                 <div className="flex ">
-                    <label className="text-indigo-500 w-1/4 mt-6">Fuente:</label>
+                    <label className="text-zinc-300 w-1/4 mt-6">Fuente:</label>
                     <input
                         type="text"
                         value={fuente}
@@ -265,7 +265,7 @@ function Private ({user}){
                     />
                 </div>
                 <div className="flex">
-                    <label className="text-indigo-500 w-1/4 mt-6">Valor: <span className='text-indigo-300'>$</span></label>
+                    <label className="text-zinc-300 w-1/4 mt-6">Valor: <span className='text-indigo-300'>$</span></label>
                     <input
                         type="text"
                         value={valor}
@@ -276,7 +276,7 @@ function Private ({user}){
                     />
                 </div>
                 {errorN === true ? <h4 className='text-red-400 text-sm w-full text-center p-2'>Solo se permiten números</h4> : null}
-                <button type="submit" className="bg-zinc-900 text-indigo-300 font-semibold rounded p-2 mt-5 w-full hover:bg-zinc-800">Agregar</button>
+                <button type="submit" className="border border-zinc-800 text-indigo-400 font-semibold rounded p-2 mt-5 w-full hover:bg-indigo-600 hover:text-zinc-300">Agregar</button>
             </form>
                 )}	
             </div>
