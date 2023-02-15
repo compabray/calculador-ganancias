@@ -147,7 +147,7 @@ function Private ({user}){
                 if(totalIngresos === 0 || totalGastos === 0){
                     return 0;
                 } else {
-                    return (totalIngresos / totalGastos) * 100;
+                    return (total/ totalIngresos) * 100;
                 }
             }
             
@@ -215,7 +215,7 @@ function Private ({user}){
         <div className='w-full mt-24 mx-auto xl:mt-6 lg:w-1/2'>
             <h2 className='text-lg text-zinc-400 text-center'>Agrega nueva actividad de tu negocio</h2>
             <div className='flex justify-between'>
-            <div className={`${toggleGastos === false ? "h-14" : "h-auto"}  border-2 border-zinc-900 rounded-md  p-4 w-64 mt-5`}> 
+            <div className={`${toggleGastos === false ? "h-14 hover:border-indigo-400 hover:border" : "h-auto"}  border-2 border-zinc-900 rounded-md  p-4 w-64 mt-5 `}> 
                 <button className=" w-full font-semibold text-center text-indigo-400" onClick={() => handleToggleGastos()}>{toggleGastos === false ? "Nuevo Gasto" : "Cancelar Gasto"}</button>
                 {toggleGastos && (
 
@@ -228,7 +228,7 @@ function Private ({user}){
                         onChange={(event) => setFuente(event.target.value)}
                         placeholder="Ingresa la fuente"
                         required
-                        className="bg-zinc-900 px-2 text-indigo-200 border-transparent border-b-indigo-500 py-0 rounded w-3/4 mt-6"
+                        className="px-2 py-0 bg-transparent text-indigo-200 border-transparent border-b-indigo-500 w-3/4 mt-6"
                     />
                     
                 </div>
@@ -240,7 +240,7 @@ function Private ({user}){
                         onChange={event => checkNumber(event)}
                         placeholder="Ingresa el valor"
                         required
-                        className="bg-zinc-900 px-2 text-indigo-200 border-transparent border-b-indigo-500 py-0  rounded w-3/4 mt-6"
+                        className="px-2 py-0 bg-transparent text-indigo-200 border-transparent border-b-indigo-500 w-3/4 mt-6"
                     />
                 </div>
                 {errorN === true ? <h4 className='text-red-400 text-sm w-full text-center p-2'>Solo se permiten números</h4> : null}
@@ -248,7 +248,7 @@ function Private ({user}){
             </form>
                 )}	
             </div>
-            <div className={`${toggleIngresos === false ? "h-14" : "h-auto"} border-2 border-zinc-900 rounded-md p-4 w-64 mt-5`}> 
+            <div className={`${toggleIngresos === false ? "h-14 hover:border-indigo-400 hover:border" : "h-auto"} border-2 border-zinc-900 rounded-md p-4 w-64 mt-5`}> 
                 <button className="w-full font-semibold text-center text-indigo-400" onClick={() => handleToggleIngresos()}>{toggleIngresos === false ? "Nuevo Ingreso" : "Cancelar Ingreso"}</button>
                 {toggleIngresos && (
 
@@ -261,7 +261,7 @@ function Private ({user}){
                         onChange={event => setFuente(event.target.value)}
                         placeholder="Ingresa la fuente"
                         required
-                        className="bg-zinc-900 px-2 text-indigo-200 border-transparent border-b-indigo-500 py-0 rounded w-3/4 mt-6"
+                        className="px-2 py-0 bg-transparent text-indigo-200 border-transparent border-b-indigo-500 w-3/4 mt-6"
                     />
                 </div>
                 <div className="flex">
@@ -272,7 +272,7 @@ function Private ({user}){
                         onChange={event => checkNumber(event)}
                         placeholder="Ingresa el valor"
                         required
-                        className="bg-zinc-900 px-2 text-indigo-200 border-transparent border-b-indigo-500 py-0  rounded w-3/4 mt-6"
+                        className="px-2 py-0 bg-transparent text-indigo-200 border-transparent border-b-indigo-500 w-3/4 mt-6"
                     />
                 </div>
                 {errorN === true ? <h4 className='text-red-400 text-sm w-full text-center p-2'>Solo se permiten números</h4> : null}
