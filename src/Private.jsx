@@ -151,19 +151,28 @@ function Private ({user}){
                 }
             }
             
-            console.log(porcentajeGanancia());
+    //    const obsverver = new IntersectionObserver((entries) => {
+    //         entries.forEach((entry) => {
+    //             if(entry.isIntersecting){
+    //                 entry.target.classList.add('animate');
+    //             } else {
+    //                 entry.target.classList.remove('animate');
+    //             }
+    //         });
+    //     });
+        
     
 
 
     return (
-        <div className='w-11/12 m-auto'>
-            <div className='flex  flex-wrap w-full md:justify-between'>
+        <div className='p-4 md:px-12 h-full lg:p-2'>
+            <div className='flex flex-wrap w-full justify-center sm:justify-between'>
                 <h1 className='text-xl text-indigo-400 p-4 text-center'> Comienza a Calcular tus ganancias ya!</h1>
-                {auth.currentUser && <button className='px-4 py- m-auto bg-zinc-900 font-semibold rounded text-indigo-500 md:m-0 lg:m-4' onClick={() => auth.signOut()}>Cerrar sesion</button>}
+                {auth.currentUser && <button className='px-4 py-2 m-auto border border-zinc-800 font-semibold rounded text-indigo-500 hover:border-zinc-500  sm:m-2' onClick={() => auth.signOut()}>Cerrar sesion</button>}
             </div>
            
-        <div className='flex flex-wrap xl:justify-between'>
-        <div className='w-full order-last mt-5 lg:order-none lg:h-screen lg:w-1/3 xl:h-auto xl:pr-40'>
+        <div className='flex flex-wrap mt-5 xl:justify-between'>
+        <div className='w-full order-last mt-16 lg:mt-5 lg:order-none lg:h-screen lg:w-2/5 xl:w-1/3 xl:h-auto pl-4 2xl:pr-12'>
             <h2 className='text-lg text-zinc-400 text-center'>Historial:</h2>
             { historial.length === 0 ? <h3 className='text-center text-zinc-500'>No hay datos</h3> :
             <div className='flex flex-wrap justify-between w-full'>
@@ -175,7 +184,7 @@ function Private ({user}){
 
                 
         return (
-            <div key={data.id} className="w-full m-auto p-1 bg-zinc-800 rounded mt-2">
+            <div key={data.id} className="w-full m-auto p-1 bg-zinc-800 rounded mt-2 slideLeft">
                
                 { data.gasto === true ?
                 <div className='flex flex-wrap justify-between w-full'>
@@ -199,11 +208,11 @@ function Private ({user}){
 }
    </div>
     
-<div className='w-full flex flex-col lg:w-2/3 xl:flex-row'>
-    <div className='w-full mt-5 rounded-md order-first lg:order-none mx-auto lg:w-1/2 xl:px-20'>
+<div className='w-full flex flex-col lg:w-3/5 xl:w-2/3 xl:flex-row'>
+    <div className='w-full mt-5 rounded-md order-first lg:order-none mx-auto lg:w-1/2 xl:px-16'>
         <h2 className='text-lg w-full text-zinc-400 text-center'>Aquí están las estadísticas de tus registros </h2>
         <div className='flex justify-center'>
-        <div className=' px-4 py-8 border border-zinc-800 w-full mt-5 rounded-3xl '>
+        <div className=' px-4 py-8 border border-zinc-800 w-full mt-5 rounded-3xl slideUp'>
                 <h3 className='text-green-400 text-center'>Total de ingresos: ${totalIngresos}</h3>
                 <h3 className='text-red-400 text-center'>Total de gastos: ${totalGastos}</h3>
                 <h3 className='text-indigo-400 text-center'>Total: ${total}</h3>
@@ -212,23 +221,23 @@ function Private ({user}){
             </div>
         </div>
 
-        <div className='w-full mt-24 mx-auto xl:mt-6 lg:w-1/2'>
+        <div className='w-full mt-16 mx-auto xl:mt-6 lg:w-1/2'>
             <h2 className='text-lg text-zinc-400 text-center'>Agrega nueva actividad de tu negocio</h2>
-            <div className='flex justify-between'>
-            <div className={`${toggleGastos === false ? "h-14 hover:border-indigo-400 hover:border" : "h-auto"}  border-2 border-zinc-900 rounded-md  p-4 w-64 mt-5 `}> 
-                <button className=" w-full font-semibold text-center text-indigo-400" onClick={() => handleToggleGastos()}>{toggleGastos === false ? "Nuevo Gasto" : "Cancelar Gasto"}</button>
+            <div className=''>
+            <div className={`${toggleGastos === false ? "h-14 hover:border-indigo-400 hover:border" : "h-auto"}  border-2 border-zinc-900 rounded-md w-64 mt-5 m-auto slideRight`}> 
+                <button className="p-4 w-full font-semibold text-center text-indigo-400" onClick={() => handleToggleGastos()}>{toggleGastos === false ? "Nuevo Gasto" : "Cancelar Gasto"}</button>
                 {toggleGastos && (
 
-                <form onSubmit={addGasto}>
+                <form className='p-2' onSubmit={addGasto}>
                 <div className="flex ">
-                    <label className="text-zinc-300 w-1/4 mt-6">Fuente:</label>
+                    <label className="text-zinc-300 w-1/4">Fuente:</label>
                     <input
                         type="text"
                         value={fuente}
                         onChange={(event) => setFuente(event.target.value)}
                         placeholder="Ingresa la fuente"
                         required
-                        className="px-2 py-0 bg-transparent text-indigo-200 border-transparent border-b-indigo-500 w-3/4 mt-6"
+                        className="px-2 py-0 bg-transparent text-indigo-200 border-transparent border-b-indigo-500 w-3/4"
                     />
                     
                 </div>
@@ -248,20 +257,20 @@ function Private ({user}){
             </form>
                 )}	
             </div>
-            <div className={`${toggleIngresos === false ? "h-14 hover:border-indigo-400 hover:border" : "h-auto"} border-2 border-zinc-900 rounded-md p-4 w-64 mt-5`}> 
-                <button className="w-full font-semibold text-center text-indigo-400" onClick={() => handleToggleIngresos()}>{toggleIngresos === false ? "Nuevo Ingreso" : "Cancelar Ingreso"}</button>
+            <div className={`${toggleIngresos === false ? "h-14 hover:border-indigo-400 hover:border" : "h-auto"} border-2 border-zinc-900 rounded-md w-64 m-auto mt-5 slideRight`}> 
+                <button className="p-4 w-full font-semibold text-center text-indigo-400" onClick={() => handleToggleIngresos()}>{toggleIngresos === false ? "Nuevo Ingreso" : "Cancelar Ingreso"}</button>
                 {toggleIngresos && (
 
-                <form onSubmit={addIngreso}>
+                <form className='p-2' onSubmit={addIngreso}>
                 <div className="flex ">
-                    <label className="text-zinc-300 w-1/4 mt-6">Fuente:</label>
+                    <label className="text-zinc-300 w-1/4 ">Fuente:</label>
                     <input
                         type="text"
                         value={fuente}
                         onChange={event => setFuente(event.target.value)}
                         placeholder="Ingresa la fuente"
                         required
-                        className="px-2 py-0 bg-transparent text-indigo-200 border-transparent border-b-indigo-500 w-3/4 mt-6"
+                        className="px-2 py-0 bg-transparent text-indigo-200 border-transparent border-b-indigo-500 w-3/4 "
                     />
                 </div>
                 <div className="flex">
