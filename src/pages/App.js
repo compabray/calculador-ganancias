@@ -1,14 +1,13 @@
 import React from 'react';
-import svg from './undraw_businessman_re_mlee.svg';
+import svg from '../components/undraw_businessman_re_mlee.svg';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 import Private from "./Private";
 // import SingIn from "./SingIn";
-import {auth} from "./firebase-config";
+import {auth} from "../utilities/firebase-config";
 
 
 
