@@ -3,7 +3,7 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { collection, query, where, onSnapshot, addDoc, deleteDoc, doc } from "firebase/firestore";
 import {useState, useEffect} from "react";
-import { auth, db} from "../utilities/firebase-config";
+import { auth, db} from "../firebase-config";
 
 
 function Private ({user}){
