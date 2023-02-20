@@ -7,7 +7,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 import Private from "./Private";
 // import SingIn from "./SingIn";
-import {auth} from "../utilities/firebase-config";
+import {auth} from "../firebase-config";
 
 
 
