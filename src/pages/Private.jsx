@@ -43,7 +43,7 @@ function Private ({user}){
 // eslint-disable-next-line react-hooks/exhaustive-deps
 }, []);
 
-
+    const [menu, setMenu] = useState(null);
 
     //Toggle the state to show or hide the data
     const [toggleGastos, setToggleGastos] = useState(false);
@@ -149,18 +149,15 @@ function Private ({user}){
                 } else {
                     return (total/ totalIngresos) * 100;
                 }
-            }
-            
-    //    const obsverver = new IntersectionObserver((entries) => {
-    //         entries.forEach((entry) => {
-    //             if(entry.isIntersecting){
-    //                 entry.target.classList.add('animate');
-    //             } else {
-    //                 entry.target.classList.remove('animate');
-    //             }
-    //         });
-    //     });
+            };
         
+            const menuClick = (id) => {
+                if (id === menu) {
+                    setMenu(null);
+                } else {
+                    setMenu(id);
+                }
+            }
     
 
 
@@ -187,19 +184,26 @@ function Private ({user}){
             <div key={data.id} className="w-full m-auto p-1 bg-zinc-800 rounded mt-2 slideLeft">
                
                 { data.gasto === true ?
-                <div className='flex flex-wrap justify-between w-full'>
+                <div className='flex flex-wrap justify-between w-full' >
                     <h3 className='text-red-500 text-sm my-auto'> <span className='text-lg'>⥄</span> {data.fuente.toUpperCase()}</h3>
                     <h3 className='text-red-400 text-sm my-auto'>- ${data.valor}</h3> 
                 </div>
                 
              :
-                <div className='flex flex-wrap justify-between w-full'>
+                <div className='flex flex-wrap justify-between w-full' >
                     <h3 className='text-green-500 text-sm my-auto'> <span className='text-lg'>⥂</span> {data.fuente.toUpperCase()}</h3>
                     <h3 className='text-green-400 text-sm my-auto'>+ ${data.valor}</h3> 
                 </div>
               }
             <h4 className='w-1/2 inline text-xs text-zinc-400'>{date}</h4>
-            <button className='text-zinc-400 float-right text-sm hover:text-zinc-300' onClick={()=> handleDelete(data.id, data.gasto)}>Eliminar</button> 
+            <h5 onClick={() => menuClick(data.id)}>...</h5>
+            {menu === data.id && (
+                <div className="absolute w-16 bg-white flex flex-col">
+                    <button className='text-zinc-400 text-sm hover:text-zinc-300'>Editar</button>
+                    <button className='text-zinc-400 text-sm hover:text-zinc-300' onClick={()=> handleDelete(data.id, data.gasto)}>Eliminar</button>
+                </div>
+            )}
+                
             </div>
             
         )
