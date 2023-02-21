@@ -34,6 +34,14 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+.w-95 {
+  width: 95%;
+}
+
+.w-5 {
+  width: 5%;
+}
+
 
 @keyframes slideUp {
   0% {

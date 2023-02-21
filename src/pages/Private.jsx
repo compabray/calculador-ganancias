@@ -193,8 +193,8 @@ function Private ({user}){
 
                 
         return (
-            <div key={data.id} className="w-full m-auto p-1 bg-zinc-800 rounded mt-2 slideLeft">
-               
+            <div key={data.id} className="w-full m-auto p-1 bg-zinc-800 rounded mt-2 slideLeft flex flex-wrap">
+               <div className="w-95 h-full p-0">
                 { data.gasto === true ?
                 <div className='flex flex-wrap justify-between w-full' >
                     <h3 className='text-red-500 text-sm my-auto'> <span className='text-lg'>⥄</span> {data.fuente.toUpperCase()}</h3>
@@ -207,15 +207,19 @@ function Private ({user}){
                     <h3 className='text-green-400 text-sm my-auto'>+ ${data.valor}</h3> 
                 </div>
               }
+              <div className='flex justify-between'>
             <h4 className='w-1/2 inline text-xs text-zinc-400'>{date}</h4>
-            <h5 className='button' onClick={() => handleMenu(data.id)}>...</h5>
+            </div>
+            </div> 
+            <button className='button cursor-pointer text-base text-bold text-zinc-400 inline h-2/3 w-5 text-right' onClick={() => handleMenu(data.id)}>&#8942;</button>
+            <div className='relative'>
             {menu === data.id && (
-                <div ref={menuRef} className="absolute w-16 bg-white flex flex-col">
+                <div ref={menuRef} className="w-24 bg-zinc-900 border border-zinc-800 rounded p-2 flex flex-col absolute -top-full -left-1 transform translate-x-1">
                     <button className='text-zinc-400 text-sm hover:text-zinc-300'>Editar</button>
                     <button className='text-zinc-400 text-sm hover:text-zinc-300' onClick={()=> handleDelete(data.id, data.gasto)}>Eliminar</button>
                 </div>
             )}
-                
+             </div>
             </div>
             
         )
