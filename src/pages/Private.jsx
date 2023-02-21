@@ -5,6 +5,7 @@ import { collection, query, where, onSnapshot, addDoc, deleteDoc, doc } from "fi
 import {useState, useEffect, useRef} from "react";
 import { auth, db} from "../firebase-config";
 
+import { Link } from "react-router-dom";
 
 function Private ({user}){
     //State to store the data from the database
@@ -215,8 +216,8 @@ function Private ({user}){
             <div className='relative'>
             {menu === data.id && (
                 <div ref={menuRef} className="w-24 bg-zinc-900 border border-zinc-800 rounded p-2 flex flex-col absolute -top-full -left-1 transform translate-x-1">
-                    <button className='text-zinc-400 text-sm hover:text-zinc-300'>Editar</button>
-                    <button className='text-zinc-400 text-sm hover:text-zinc-300' onClick={()=> handleDelete(data.id, data.gasto)}>Eliminar</button>
+                    <button className='text-zinc-400 text-sm hover:text-zinc-300 text-center' onClick={()=> handleDelete(data.id, data.gasto)}>Eliminar</button>
+                    <Link to={'/dashboard'} state={{data: data}} className='text-zinc-400 text-sm hover:text-zinc-300 text-center'>Ver más...</Link>
                 </div>
             )}
              </div>
