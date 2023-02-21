@@ -2,7 +2,7 @@
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { collection, query, where, onSnapshot, addDoc, deleteDoc, doc } from "firebase/firestore";
-import {useState, useEffect} from "react";
+import {useState, useEffect, useRef} from "react";
 import { auth, db} from "../firebase-config";
 
 
@@ -43,7 +43,6 @@ function Private ({user}){
 // eslint-disable-next-line react-hooks/exhaustive-deps
 }, []);
 
-    const [menu, setMenu] = useState(null);
 
     //Toggle the state to show or hide the data
     const [toggleGastos, setToggleGastos] = useState(false);
@@ -151,15 +150,28 @@ function Private ({user}){
                 }
             };
         
-            const menuClick = (id) => {
-                if (id === menu) {
-                    setMenu(null);
-                } else {
-                    setMenu(id);
-                }
-            }
-    
+            const [menu, setMenu] = useState(null);
+            const menuRef = useRef();
 
+            useEffect(() => {
+                const handleOutsideClick = (event) => {
+                    if (menuRef.current && !menuRef.current.contains(event.target)) {
+                        if (!event.target.matches('.button')) {
+                          setMenu(null);
+                        }
+                      }
+                };
+            
+                document.addEventListener('mousedown', handleOutsideClick);
+            
+                return () => {
+                  document.removeEventListener('mousedown', handleOutsideClick);
+                };
+              }, []);
+
+            const handleMenu = (id) => {
+                setMenu((prevId) => (prevId === id ? null : id));
+            };
 
     return (
         <div className='p-4 md:px-12 h-full lg:p-2'>
@@ -196,9 +208,9 @@ function Private ({user}){
                 </div>
               }
             <h4 className='w-1/2 inline text-xs text-zinc-400'>{date}</h4>
-            <h5 onClick={() => menuClick(data.id)}>...</h5>
+            <h5 className='button' onClick={() => handleMenu(data.id)}>...</h5>
             {menu === data.id && (
-                <div className="absolute w-16 bg-white flex flex-col">
+                <div ref={menuRef} className="absolute w-16 bg-white flex flex-col">
                     <button className='text-zinc-400 text-sm hover:text-zinc-300'>Editar</button>
                     <button className='text-zinc-400 text-sm hover:text-zinc-300' onClick={()=> handleDelete(data.id, data.gasto)}>Eliminar</button>
                 </div>
