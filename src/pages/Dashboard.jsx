@@ -9,36 +9,33 @@ function Dashboard () {
     const location = useLocation();
 
     const [descripcion, setDescripcion] = useState(location.state?.data.descripcion);
-    const [editingDescripcion, setEditingDescripcion] = useState(!location.state?.data.descripcion);
-
+    const [inputValue, setInputValue] = useState(descripcion)
 
     const id = location.state?.data.id;
     //Obtiene el tipo de documento de la ruta
     const gasto = location.state?.data.gasto;
     //Obtiene el documento de la ruta
     const docRef = doc(db, gasto === true ? "gastos" : "ingresos", id);
-   
-    async function getDescripcion() {
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          setDescripcion(docSnap.data().descripcion || '');
-          setEditingDescripcion(false);
-        }
-      }
+
     
       useEffect(() => {
-        getDescripcion();
+        const unsubscribe = onSnapshot(docRef, (doc) => {
+          setDescripcion(doc.data().descripcion);
+          console.log(doc.data().descripcion)
+        });
+        return unsubscribe;
       }, []);
 
-    async function actualizarDescripcion() {
-        await updateDoc(docRef, { descripcion });
-        setEditingDescripcion(false);
-      }
-    
-
-        function handleInputChange(event) {
-            setDescripcion(event.target.value);
-        }
+      async function actualizarDescripcion(event) {
+        event.preventDefault();
+        await updateDoc(docRef, { descripcion: inputValue });
+        console.log("Document successfully updated!");
+        setDescripcion(inputValue);
+    }
+  
+    function handleInputChange(event) {
+      setInputValue(event.target.value);
+    }
 
 
     // Convierte la fecha de firebase a una fecha legible
@@ -73,16 +70,20 @@ function Dashboard () {
                 <div className="w-1/2 border border-transparent border-l-zinc-700 px-4 h-full">
                     <h2 className="text-xl text-zinc-400 mt-8 w-full text-center">Descripción:</h2>
                     <div>
-                    {editingDescripcion || !descripcion ? (
-                        <div>
-                            <input className="" type="text" value={descripcion} onChange={handleInputChange} />
-                            <button className="text-white" onClick={actualizarDescripcion}>Guardar</button>
-                        </div>
+                    {  descripcion === "" || !descripcion  ? (
+                       <div>
+                       <form onSubmit={actualizarDescripcion}>
+                       <input className="" type="text-area" value={inputValue} onChange={handleInputChange} />
+                       <button className="text-white" type="submit">Guardar</button>
+                       </form>
+                   </div>
+                        
                      ) : (
                         <p className="text-white">
-                             {descripcion}{' '}
-                            
-                        </p>
+                        {descripcion}{console.log(descripcion)}
+                       
+                   </p>
+                        
                     )}
                  </div>
                     
