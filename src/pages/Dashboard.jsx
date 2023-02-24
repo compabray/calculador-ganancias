@@ -1,7 +1,9 @@
 import { useLocation, Link } from "react-router-dom";
 import { auth, db } from "../firebase-config";
 import { useState, useEffect } from "react";
-import { doc, updateDoc, onSnapshot, getDoc } from "firebase/firestore";
+import { doc, updateDoc, onSnapshot,} from "firebase/firestore";
+import Navbar from "../components/Navbar";
+
 
 
 function Dashboard () {
@@ -67,9 +69,9 @@ function Dashboard () {
 
     return (
         <div className="">
-             <div className='flex flex-wrap w-full justify-center sm:justify-between'>
+             <div className='flex flex-wrap w-full justify-center sm:justify-between p-2'>
                 <Link to={"/"} className='text-xl text-indigo-400 p-4 text-center hover:text-indigo-300'>Volver a la página principal</Link>
-                {auth.currentUser && <button className='px-4 py-2 m-auto border border-zinc-800 font-semibold rounded text-indigo-500 hover:border-zinc-500  sm:m-2' onClick={() => auth.signOut()}>Cerrar sesion</button>}
+                 <Navbar/>
             </div>
             <div className='flex flex-wrap m-auto mt-8 justify-center sm:justify-between sm:w-10/12 lg:w-3/5 p-4 sm:border sm:border-zinc-700 rounded-xl'>
                 <div className="w-full flex justify-between align-middle">

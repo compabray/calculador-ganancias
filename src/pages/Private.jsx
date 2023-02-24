@@ -7,6 +7,8 @@ import { auth, db} from "../firebase-config";
 
 import { Link } from "react-router-dom";
 
+import Navbar from '../components/Navbar';
+
 function Private ({user}){
     //State to store the data from the database
     const [ingresos, setIngresos] = useState([]);
@@ -178,7 +180,7 @@ function Private ({user}){
         <div className='p-4 md:px-12 h-full lg:p-2'>
             <div className='flex flex-wrap w-full justify-center sm:justify-between'>
                 <h1 className='text-xl text-indigo-400 p-4 text-center'> Comienza a Calcular tus ganancias ya!</h1>
-                {auth.currentUser && <button className='px-4 py-2 m-auto border border-zinc-800 font-semibold rounded text-indigo-500 hover:border-zinc-500  sm:m-2' onClick={() => auth.signOut()}>Cerrar sesion</button>}
+                <Navbar/>
             </div>
            
         <div className='flex flex-wrap mt-5 xl:justify-between'>

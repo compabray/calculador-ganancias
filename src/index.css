@@ -15,6 +15,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
+  overflow: hidden;
 
 }
 
@@ -89,3 +90,22 @@ input[type=number] {
 }
 
 /* Path: src\index.css */
+
+.navB {
+  transition: all;
+  transition-duration: 0.6s;
+  right: -100%;
+}
+
+
+
+.nav {
+  position: absolute;
+ 
+  z-index: 1;
+  transition: all;
+  transition-duration: 0.6s;
+  top: 0;
+  right: 0;
+
+}
