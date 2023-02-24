@@ -219,7 +219,7 @@ function Private ({user}){
             {menu === data.id && (
                 <div ref={menuRef} className="w-24 bg-zinc-900 border border-zinc-800 rounded p-2 flex flex-col absolute -top-full -left-1 transform translate-x-1">
                     <button className='text-zinc-400 text-sm hover:text-zinc-300 text-center' onClick={()=> handleDelete(data.id, data.gasto)}>Eliminar</button>
-                    <Link to={'/dashboard'} state={{data: data}} className='text-zinc-400 text-sm hover:text-zinc-300 text-center'>Ver más</Link>
+                    <Link to={'/item'} state={{data: data}} className='text-zinc-400 text-sm hover:text-zinc-300 text-center'>Ver más</Link>
                 </div>
             )}
              </div>
