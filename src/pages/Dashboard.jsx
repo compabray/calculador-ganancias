@@ -82,9 +82,47 @@ function groupByProperty(arr, property) {
 }
 
 const groupedData = groupByProperty(items, 'grupo');
-console.log(groupedData);
 
-//Get the total of the data
+function getTotalIncomes(group) {
+  let total = 0;
+  group.forEach((item) => {
+    if (item.gasto === false) {
+      const value = Number(item.valor);
+      if (!isNaN(value)) {
+        total += value;
+      }
+    }
+  });
+  return total;
+}
+
+function getTotalSpent(group) {
+  let total = 0;
+  group.forEach((item) => {
+    if (item.gasto === true) {
+      const value = Number(item.valor);
+      if (!isNaN(value)) {
+        total += value;
+      }
+    }
+  });
+  return total;
+}
+
+function getTotalProfit(group) {
+  let total = 0;
+  group.forEach((item) => {
+    const value = Number(item.valor);
+    if (!isNaN(value)) {
+      if (item.gasto === false) {
+        total += value;
+      } else {
+        total -= value;
+      }
+    }
+  });
+  return total;
+}
 
 
 
@@ -99,8 +137,29 @@ console.log(groupedData);
             <h2 className='text-zinc-200 text-4xl'>Aquí están todos los grupos que has registrado</h2>
             <h3 className='text-zinc-400 mt-5'>¡Clickeando en el botón de ver más puedes ver todos los ingresos o gastos que pertenecen a este grupo!</h3>
             <div>
+              {
+                groupedData.length > 0 ? (
+              <div>
+                {groupedData.map((group) => {
+   
 
-            </div>
+   return (
+     <div key={group[0].grupo}>
+     <h2>{group[0].grupo}</h2>
+     <p>Total Income: ${getTotalIncomes(group)}</p>
+     <p>Total Spent: ${getTotalSpent(group)}</p>
+     <p>Total Profit: ${getTotalProfit(group)}</p>
+   </div>
+   );
+ })}
+               </div> 
+                ) : (
+                  <p>No hay grupos registrados</p>
+                )
+
+              }
+      
+    </div>
         </div>
     </div>
   )
