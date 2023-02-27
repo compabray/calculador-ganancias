@@ -43,23 +43,36 @@ function Dashboard() {
 // eslint-disable-next-line react-hooks/exhaustive-deps
 }, []);
     
-console.log(items)
+
+//Group the data by the property 'grupo'
 
 function groupByProperty(arr, property) {
   const groups = {};
 
+  // Group the items by the property
   for (let i = 0; i < arr.length; i++) {
     const item = arr[i];
     const group = item[property];
+
+    // Skip the item if it doesn't have the property
+    if (!group) {
+      continue;
+    }
+
+    // Create the group if it doesn't exist
 
     if (!groups[group]) {
       groups[group] = [];
     }
 
+    // Add the item to the group
+
     groups[group].push(item);
   }
 
   const result = [];
+
+  // Create the result array
 
   for (let group in groups) {
     result.push(groups[group]);
@@ -71,6 +84,10 @@ function groupByProperty(arr, property) {
 const groupedData = groupByProperty(items, 'grupo');
 console.log(groupedData);
 
+//Get the total of the data
+
+
+
 
   return (
     <div className=''>
@@ -81,9 +98,9 @@ console.log(groupedData);
         <div className='w-full p-4  text-center'>        
             <h2 className='text-zinc-200 text-4xl'>Aquí están todos los grupos que has registrado</h2>
             <h3 className='text-zinc-400 mt-5'>¡Clickeando en el botón de ver más puedes ver todos los ingresos o gastos que pertenecen a este grupo!</h3>
-            <h5>
-    
-            </h5>
+            <div>
+
+            </div>
         </div>
     </div>
   )
