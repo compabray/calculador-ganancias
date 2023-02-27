@@ -136,23 +136,29 @@ function getTotalProfit(group) {
         <div className='w-full p-4  text-center'>        
             <h2 className='text-zinc-200 text-4xl'>Aquí están todos los grupos que has registrado</h2>
             <h3 className='text-zinc-400 mt-5'>¡Clickeando en el botón de ver más puedes ver todos los ingresos o gastos que pertenecen a este grupo!</h3>
-            <div>
+            <div className='w-3/4 flex flex-wrap justify-around m-auto mt-10 '>
               {
                 groupedData.length > 0 ? (
-              <div>
+              <>
                 {groupedData.map((group) => {
-   
-
-   return (
-     <div key={group[0].grupo}>
-     <h2>{group[0].grupo}</h2>
-     <p>Total Income: ${getTotalIncomes(group)}</p>
-     <p>Total Spent: ${getTotalSpent(group)}</p>
-     <p>Total Profit: ${getTotalProfit(group)}</p>
-   </div>
+            
+                  return (
+                        <div className='w-1/5 p-4 border  border-zinc-800 rounded-md hover:border-zinc-700 hover:duration-300 duration-300 flex flex-col' key={group[0].grupo}>
+                          <h2 className='w-2/3 m-auto block cursor-default text-xl font-medium text-zinc-200 p-1 border border-b-indigo-500 border-transparent'>
+                            {group[0].grupo.charAt(0).toUpperCase() + group[0].grupo.slice(1).toLowerCase()}
+                          </h2>
+                          <h3 className='cursor-default mt-5 text-green-500'>Total Income: ${getTotalIncomes(group)}</h3>
+                          <h3 className='cursor-default mt-1 text-red-500'>Total Spent: ${getTotalSpent(group)}</h3>
+                          <h3 className='cursor-default mt-1 text-zinc-300'>Total Profit: ${getTotalProfit(group)}</h3>
+                       
+                            <Link className='cursor-pointer text-white  p-2 mt-3 rounded border border-zinc-700 text-base hover:border-indigo-600 transition duration-300' to={`/grupo/${group[0].grupo}`} state={group}>
+                            Ver más
+                          </Link>
+                          
+                        </div>
    );
  })}
-               </div> 
+               </> 
                 ) : (
                   <p>No hay grupos registrados</p>
                 )
