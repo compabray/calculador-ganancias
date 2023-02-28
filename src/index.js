@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route  } from 'react-router-dom';
 import App from './pages/App';
 import Item from './pages/Item';
 import Dashboard from './pages/Dashboard';
+import Group from './pages/Group';
 
 
 
@@ -20,6 +21,7 @@ root.render(
         <Route path='/' element={<App />} />
         <Route path='/item' element={<Item />} />
         <Route path='/dashboard' element={<Dashboard/>}/>
+        <Route path='/group' element={<Group />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

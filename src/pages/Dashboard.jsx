@@ -17,7 +17,6 @@ function Dashboard() {
 
   const items = ingresos.concat(gastos);
 
-  const [group, setGroup] = useState([]);
 
   useEffect(() => {
     //Get the data from the database
@@ -151,7 +150,7 @@ function getTotalProfit(group) {
                           <h3 className='cursor-default mt-1 text-red-500'>Total Spent: ${getTotalSpent(group)}</h3>
                           <h3 className='cursor-default mt-1 text-zinc-300'>Total Profit: ${getTotalProfit(group)}</h3>
                        
-                            <Link className='cursor-pointer text-white  p-2 mt-3 rounded border border-zinc-700 text-base hover:border-indigo-600 transition duration-300' to={`/grupo/${group[0].grupo}`} state={group}>
+                            <Link className='cursor-pointer text-white  p-2 mt-3 rounded border border-zinc-700 text-base hover:border-indigo-600 transition duration-300' to='/group' state={{data:group}}>
                             Ver más
                           </Link>
                           
