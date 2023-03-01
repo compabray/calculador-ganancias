@@ -9,6 +9,7 @@ function Group() {
 
     const items = location.state?.data;
     console.log(items[0].grupo)
+
   return (
     <div>
         <div className='w-full'>
@@ -18,15 +19,22 @@ function Group() {
                 <h1 className='text-zinc-200 font-semibold text-3xl border border-transparent border-b-indigo-400 py-1 px-6 text-center '>{items[0].grupo.toUpperCase()}</h1>
             </div>
             
-        <div className='w-3/4 m-auto p-3 mt-6 flex flex-wrap justify-around '>
+        <div className='w-4/5 m-auto p-3 mt-6 flex flex-wrap justify-around '>
             {
-                items.map((item) => (
-                    <div key={item.fuente} className="p-3 w-1/5 bg-zinc-900 text-center rounded-lg">     
-                        <h2 className='text-xl text-zinc-400 font-bold'>{item.fuente}</h2>
+                items.map((item) => {
+                    const fireBaseTime = new Date(item.date.seconds * 1000 + item.date.nanoseconds / 1000000,);
+                    const date = fireBaseTime.toLocaleDateString();
+                return (
+                    <div key={item.fuente} className="p-3 w-1/4 bg-zinc-900 text-center rounded-lg items-stretch">   
+                        <>
+                        <h2 className='text-xl text-zinc-300 font-bold w-11/12'>{item.fuente.charAt(0).toUpperCase() + item.fuente.slice(1)}</h2>
+                        <h2 className='w-1/12'>{date}</h2>
+                        </>  
+                        
                         <h3 className={`${item.gasto === true ? 'text-red-500' : 'text-green-500'} font-bold`}>{item.gasto === true ? ` -${item.valor}` : ` +${item.valor}`}</h3>
+                        <h3 className='text-zinc-400 mt-4'>{ item.descripcion ? `${item.descripcion.charAt(0).toUpperCase() + item.descripcion.slice(1).toLowerCase()}` : 'Aún no tiene una descripción' } </h3>
                     </div>
-                ))
-
+                )})
             }
         </div>
     </div>
