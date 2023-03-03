@@ -1,4 +1,6 @@
 import {useState, useEffect} from 'react';
+import { deleteDoc, doc } from 'firebase/firestore';
+import { db } from '../firebase-config';
 import { useLocation, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,7 +12,14 @@ function Group() {
     const location = useLocation();
 
     const items = location.state?.data;
-    console.log(items[0].grupo)
+
+    const handleDelete = async (id, gasto) => {
+        if(gasto === true){
+            await deleteDoc(doc(db, "gastos", id));
+        } else {
+            await deleteDoc(doc(db, "ingresos", id));
+        }
+  };
 
   return (
     <div>
@@ -39,8 +48,10 @@ function Group() {
                                 <h3 className='text-zinc-400 mt-4 multine-ellipsis' >{ item.descripcion ? `${item.descripcion.charAt(0).toUpperCase() + item.descripcion.slice(1).toLowerCase()}` : 'Aún no tiene una descripción' } </h3>
                             </div>
                             <div className='w-full flex justify-around mt-3'>
-                                <Link className='w-2/5 text-indigo-500'><FontAwesomeIcon icon={faPencil}/> Editar</Link>
-                                <button className='w-2/5 text-indigo-500'><FontAwesomeIcon icon={faTrash}/> Borrar</button>
+                                <Link to={'/item'} state={{data: item}} className='w-2/5 text-indigo-400 hover:text-indigo-200 hover:duration-200 duration-200'><FontAwesomeIcon icon={faPencil}/>  Editar</Link>
+                                <button onClick={()=> handleDelete(item.id, item.gasto)} className='w-2/5 text-indigo-400 hover:text-red-500 hover:duration-200 duration-200'>
+                                    <FontAwesomeIcon icon={faTrash}/>  Borrar
+                                </button>
                             </div>
                         </div>
                     </div>
