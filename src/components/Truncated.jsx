@@ -1,30 +1,35 @@
-import { useState, useEffect } from "react";
+import { useRef, useEffect } from 'react';
 
+function Truncated({ text, maxLines, className }) {
+  const containerRef = useRef(null);
 
-function Truncated ({text, maxLines, className}) {
-    const containerRef = useRef(null);
+  useEffect(() => {
+    const container = containerRef.current;
+    const textNode = container.querySelector('.text-node');
+    const lineHeight = parseInt(getComputedStyle(textNode).lineHeight);
 
-    useEffect(() => {
-        const container = containerRef.current;
-        const lineHeight = parseInt(window.getComputedStyle(container).lineHeight);
+    const observer = new ResizeObserver(entries => {
+      const { height } = entries[0].contentRect;
+      const numLines = Math.round(height / lineHeight);
 
-        const maxLineHeight = maxLines * lineHeight;
-        const textHeight = container.scrollHeight;
+      if (numLines > maxLines) {
+        textNode.style.webkitLineClamp = `${maxLines}`;
+        textNode.style.overflow = 'hidden';
+      }
+    });
 
-        if (textHeight > maxLineHeight) {
-            container.style.height = `${maxLineHeight}px`;
-            container.style.overflow = 'hidden';
-            container.style.textOverflow = 'ellipsis';
-        }
+    observer.observe(container);
 
-    }, [maxLines, text]);
+    return () => {
+      observer.disconnect();
+    };
+  }, [text, maxLines]);
 
-
-    return (
-        <p className={className ? className : ""} ref={containerRef}>
-            {text}
-        </p>
-    );
+  return (
+    <div ref={containerRef} className={className + "truncate"}>
+      <p className="text-node">{text}</p>
+    </div>
+  );
 }
 
 

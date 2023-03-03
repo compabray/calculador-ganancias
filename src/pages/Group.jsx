@@ -1,8 +1,7 @@
 import {useState, useEffect} from 'react';
-import { useLocation } from "react-router-dom";
-import { onSnapshot, } from "firebase/firestore";
+import { useLocation, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import Truncated from '../components/Truncated';
+
 
 
 function Group() {
@@ -35,7 +34,7 @@ function Group() {
                         <div className='p-4 w-full'>
                             <h3 className={`${item.gasto === true ? 'text-red-500' : 'text-green-500'}  w-full  text-xl`}>{item.gasto === true ? ` - $${item.valor}` : ` + $${item.valor}`}</h3>
                             <h2 className='w-full text-center text-zinc-500 text-sm'>{date}</h2>
-                            <h3 className='text-zinc-400 mt-4 w-full  max-h-[6em] overflow-hidden' style={{ lineHeight: '1.5em', maxHeight: '9em' }}>{ item.descripcion ? `${item.descripcion.charAt(0).toUpperCase() + item.descripcion.slice(1).toLowerCase()}` : 'Aún no tiene una descripción' } </h3>
+                            <h3 className='text-zinc-400 mt-4 multine-ellipsis' >{ item.descripcion ? `${item.descripcion.charAt(0).toUpperCase() + item.descripcion.slice(1).toLowerCase()}` : 'Aún no tiene una descripción' } </h3>
                         </div>
                     </div>
                 )})
