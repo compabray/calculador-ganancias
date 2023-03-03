@@ -7,6 +7,9 @@ import {auth, db} from '../firebase-config';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
 
+import { groupByProperty } from '../utils/groupByProperty';
+import { getTotalIncomes, getTotalProfit, getTotalSpent } from '../utils/calculate';
+
 
 function Dashboard() {
 
@@ -45,86 +48,7 @@ function Dashboard() {
 
 //Group the data by the property 'grupo'
 
-function groupByProperty(arr, property) {
-  const groups = {};
-
-  // Group the items by the property
-  for (let i = 0; i < arr.length; i++) {
-    const item = arr[i];
-    const group = item[property];
-
-    // Skip the item if it doesn't have the property
-    if (!group) {
-      continue;
-    }
-
-    // Create the group if it doesn't exist
-
-    if (!groups[group]) {
-      groups[group] = [];
-    }
-
-    // Add the item to the group
-
-    groups[group].push(item);
-  }
-
-  const result = [];
-
-  // Create the result array
-
-  for (let group in groups) {
-    result.push(groups[group]);
-  }
-
-  return result;
-}
-
 const groupedData = groupByProperty(items, 'grupo');
-
-function getTotalIncomes(group) {
-  let total = 0;
-  group.forEach((item) => {
-    if (item.gasto === false) {
-      const value = Number(item.valor);
-      if (!isNaN(value)) {
-        total += value;
-      }
-    }
-  });
-  return total;
-}
-
-function getTotalSpent(group) {
-  let total = 0;
-  group.forEach((item) => {
-    if (item.gasto === true) {
-      const value = Number(item.valor);
-      if (!isNaN(value)) {
-        total += value;
-      }
-    }
-  });
-  return total;
-}
-
-function getTotalProfit(group) {
-  let total = 0;
-  group.forEach((item) => {
-    const value = Number(item.valor);
-    if (!isNaN(value)) {
-      if (item.gasto === false) {
-        total += value;
-      } else {
-        total -= value;
-      }
-    }
-  });
-  return total;
-}
-
-
-
 
   return (
     <div className=''>
@@ -159,7 +83,7 @@ function getTotalProfit(group) {
  })}
                </> 
                 ) : (
-                  <p>No hay grupos registrados</p>
+                  <p className='text-zinc-400'>No hay grupos registrados</p>
                 )
 
               }
