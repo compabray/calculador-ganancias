@@ -51,22 +51,22 @@ function Dashboard() {
 const groupedData = groupByProperty(items, 'grupo');
 
 return (
-    <div className=''>
-        <div className='flex flex-wrap w-full justify-center sm:justify-between p-2'>
-            <h1 className='text-zinc-300 text-2xl w-1/2 p-3 font-semibold'>Dashboard</h1>
+    <div>
+        <div className='flex flex-wrap w-full justify-between p-2'>
+            <h1 className='text-zinc-300 sm:text-2xl w-1/2 p-3 font-semibold'>Dashboard</h1>
             <Navbar/>
         </div>
         <div className='w-full p-4  text-center'>        
-            <h2 className='text-zinc-200 text-4xl'>Aquí están todos los grupos que has registrado</h2>
-            <h3 className='text-zinc-400 mt-5'>¡Clickeando en el botón de ver más puedes ver todos los ingresos o gastos que pertenecen a este grupo!</h3>
-            <div className='w-3/4 flex flex-wrap justify-around m-auto mt-10 '>
+            <h2 className='text-zinc-200 text-2xl lg:text-4xl'>Aquí están todos los grupos que has registrado</h2>
+            <h3 className='text-zinc-400 mt-5 text-sm'>¡Clickeando en el botón de ver más puedes ver todos los ingresos o gastos que pertenecen a este grupo!</h3>
+            <div className='w-full p-2 flex flex-col flex-wrap justify-around m-auto mt-10 lg:flex-row lg:w-3/4'>
               {
                 groupedData.length > 0 ? (
               <>
                 {groupedData.map((group) => {
             
                   return (
-                        <div className='w-1/5 p-4 border  border-zinc-800 rounded-md hover:border-zinc-700 hover:duration-300 duration-300 flex flex-col' key={group[0].grupo}>
+                        <div className='w-full p-3 border mt-5  border-zinc-800 rounded-md hover:border-zinc-700 hover:duration-300 duration-300 flex flex-col lg:w-1/5 ' key={group[0].grupo}>
                           <h2 className='w-2/3 m-auto block cursor-default text-xl font-medium text-zinc-200 p-1 border border-b-indigo-500 border-transparent'>
                             {group[0].grupo.charAt(0).toUpperCase() + group[0].grupo.slice(1).toLowerCase()}
                           </h2>
