@@ -1,17 +1,58 @@
 import {useState, useEffect} from 'react';
 import { deleteDoc, doc } from 'firebase/firestore';
-import { db } from '../firebase-config';
+import { auth ,db } from '../firebase-config';
 import { useLocation, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { collection, query, where, onSnapshot } from 'firebase/firestore';
+
 
 function Group() {
 
     const location = useLocation();
+    const itemLoc = location.state?.data;
 
-    const items = location.state?.data;
+    console.log(location)
+
+    const [user] = useAuthState(auth);
+
+  const [ingresos, setIngresos] = useState([]);
+  const [gastos, setGastos] = useState([]);
+
+  const items = ingresos.concat(gastos);
+
+
+  useEffect(() => {
+    //Get the data from the database
+    const gastosRef = query(collection(db, "gastos"), where("uid", "==", user.uid));
+    const ingresosRef = query(collection(db, "ingresos"), where("uid", "==", user.uid));
+
+    //Listen to the data and update the state
+
+    const unsubscribeIngresos = onSnapshot(ingresosRef, (querySnapshot) => {
+        setIngresos(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    });
+
+    const unsubscribeGastos = onSnapshot(gastosRef, (querySnapshot) => {
+        setGastos(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    });
+
+    //Unsubscribe from the data when the component unmounts
+
+    return () => {
+        unsubscribeIngresos();
+        unsubscribeGastos();
+    };
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
+    
+
+//Group the data by the property 'grupo'
+
+const itemSorted = items.filter((item) => item.grupo === itemLoc[0].grupo);
 
     const handleDelete = async (id, gasto) => {
         if(gasto === true){
@@ -21,18 +62,20 @@ function Group() {
         }
   };
 
+
+
   return (
     <div>
         <div className='w-full'>
             <Navbar />
         </div>
             <div className='flex w-full justify-center flex-wrap'>
-                <h1 className='text-zinc-200 font-semibold text-3xl border border-transparent border-b-indigo-400 py-1 px-6 text-center '>{items[0].grupo.toUpperCase()}</h1>
+                <h1 className='text-zinc-200 font-semibold text-3xl border border-transparent border-b-indigo-400 py-1 px-6 text-center '>{itemLoc[0].grupo.toUpperCase()}</h1>
             </div>
             
         <div className='w-4/5 m-auto p-3 mt-6 flex flex-wrap justify-around '>
             {
-                items.map((item) => {
+                itemSorted.map((item) => {
                     const fireBaseTime = new Date(item.date.seconds * 1000 + item.date.nanoseconds / 1000000,);
                     const date = fireBaseTime.toLocaleDateString();
                 return (

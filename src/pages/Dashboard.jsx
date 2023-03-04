@@ -50,7 +50,7 @@ function Dashboard() {
 
 const groupedData = groupByProperty(items, 'grupo');
 
-  return (
+return (
     <div className=''>
         <div className='flex flex-wrap w-full justify-center sm:justify-between p-2'>
             <h1 className='text-zinc-300 text-2xl w-1/2 p-3 font-semibold'>Dashboard</h1>
@@ -74,7 +74,9 @@ const groupedData = groupByProperty(items, 'grupo');
                           <h3 className='cursor-default mt-1 text-red-500'>Total Spent: ${getTotalSpent(group)}</h3>
                           <h3 className='cursor-default mt-1 text-zinc-300'>Total Profit: ${getTotalProfit(group)}</h3>
                        
-                            <Link className='cursor-pointer text-white  p-2 mt-3 rounded border border-zinc-700 text-base hover:border-indigo-600 transition duration-300' to='/group' state={{data:group}}>
+                            <Link 
+                              className='cursor-pointer text-white  p-2 mt-3 rounded border border-zinc-700 text-base hover:border-indigo-600 transition duration-300' to='/group' 
+                              state={{data:group}}>
                             Ver más
                           </Link>
                           
