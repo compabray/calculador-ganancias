@@ -69,17 +69,17 @@ const itemSorted = items.filter((item) => item.grupo === itemLoc[0].grupo);
         <div className='w-full'>
             <Navbar />
         </div>
-            <div className='flex w-full justify-center flex-wrap'>
+            <div className='flex w-full justify-center flex-wrap mt-10'>
                 <h1 className='text-zinc-200 font-semibold text-3xl border border-transparent border-b-indigo-400 py-1 px-6 text-center '>{itemLoc[0].grupo.toUpperCase()}</h1>
             </div>
             
-        <div className='w-4/5 m-auto p-3 mt-6 flex flex-wrap justify-around '>
+        <div className='w-full m-auto p-3 mt-6 flex flex-wrap justify-around lg:w-4/5'>
             {
                 itemSorted.map((item) => {
                     const fireBaseTime = new Date(item.date.seconds * 1000 + item.date.nanoseconds / 1000000,);
                     const date = fireBaseTime.toLocaleDateString();
                 return (
-                    <div key={item.fuente} className="flex flex-col w-1/4 bg-zinc-900 text-center rounded-lg h-auto items-stretch">   
+                    <div key={item.fuente} className="flex flex-col w-11/12 bg-zinc-900 text-center rounded-lg h-auto items-stretch lg:w-1/4">   
                         
                         <h2 className='text-xl text-zinc-300 font-bold w-full rounded-t-lg bg-zinc-800 h-16 truncate py-5 px-2'>{item.fuente.charAt(0).toUpperCase() + item.fuente.slice(1)}</h2>
                       
