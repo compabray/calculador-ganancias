@@ -51,11 +51,11 @@ function Private ({user}){
     const [toggleGastos, setToggleGastos] = useState(false);
     const [toggleIngresos, setToggleIngresos] = useState(false);
 
-    //State to store the data from the form
-
     //Function to add a new document to the database
     const [fuente, setFuente] = useState("");
     const [valor, setValor] = useState(0);
+    const [descripcion, setDescripcion] = useState("");
+    const [grupo, setGrupo] = useState("");
     const [errorN, setErrorN] = useState(false);
     
 
@@ -80,11 +80,15 @@ function Private ({user}){
             uid: user.uid,
             date: new Date(),
             gasto:true, 
+            descripcion,
+            grupo,
         };
         try {
             await addDoc(collectionRef, payload);
             setFuente("");
             setValor("");
+            setDescripcion("");
+            setGrupo("");
         } catch (error) {
             console.log(error);
         } };
@@ -99,11 +103,15 @@ function Private ({user}){
                 uid: user.uid,
                 date: new Date(),
                 gasto:false, 
+                descripcion,
+                grupo,
             };
             try {
                 await addDoc(collectionRef, payload);
                 setFuente("");
                 setValor("");
+                setDescripcion("");
+                setGrupo("");
             } catch (error) {
                 console.log(error);
             } };
@@ -276,6 +284,28 @@ function Private ({user}){
                     />
                 </div>
                 {errorN === true ? <h4 className='text-red-400 text-sm w-full text-center p-2'>Solo se permiten números</h4> : null}
+                <div className="flex flex-wrap">
+                    <label className="text-zinc-300 w-full">Descripcion:</label>
+                    <textarea
+                        type="text"
+                        value={descripcion}
+                        onChange={(event) => setDescripcion(event.target.value)}
+                        placeholder="Ingresa la descripcion (opcional)" 
+                        className="px-2 py-0 bg-transparent text-indigo-200 border-transparent border-b-indigo-500 w-full"
+                    />
+                    
+                </div>
+                <div className="flex ">
+                    <label className="text-zinc-300 w-1/4">Grupo</label>
+                    <input
+                        type="text"
+                        value={grupo}
+                        onChange={(event) => setGrupo(event.target.value)}
+                        placeholder="Ingresa un grupo (opcional)"
+                        className="px-2 py-0 bg-transparent text-indigo-200 border-transparent border-b-indigo-500 w-3/4"
+                    />
+                    
+                </div>
                 <button type="submit" className="border border-zinc-800 text-indigo-400 font-semibold rounded p-2 mt-5 w-full hover:bg-indigo-600 hover:text-zinc-300">Agregar</button>
             </form>
                 )}	
@@ -308,6 +338,28 @@ function Private ({user}){
                     />
                 </div>
                 {errorN === true ? <h4 className='text-red-400 text-sm w-full text-center p-2'>Solo se permiten números</h4> : null}
+                <div className="flex ">
+                    <label className="text-zinc-300 w-1/4">Descripcion:</label>
+                    <input
+                        type="text"
+                        value={descripcion}
+                        onChange={(event) => setDescripcion(event.target.value)}
+                        placeholder="Ingresa la descripcion (opcional)" 
+                        className="px-2 py-0 bg-transparent text-indigo-200 border-transparent border-b-indigo-500 w-3/4"
+                    />
+                    
+                </div>
+                <div className="flex ">
+                    <label className="text-zinc-300 w-1/4">Grupo</label>
+                    <input
+                        type="text"
+                        value={grupo}
+                        onChange={(event) => setGrupo(event.target.value)}
+                        placeholder="Ingresa un grupo (opcional)"
+                        className="px-2 py-0 bg-transparent text-indigo-200 border-transparent border-b-indigo-500 w-3/4"
+                    />
+                    
+                </div>
                 <button type="submit" className="border border-zinc-800 text-indigo-400 font-semibold rounded p-2 mt-5 w-full hover:bg-indigo-600 hover:text-zinc-300">Agregar</button>
             </form>
                 )}	
